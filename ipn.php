@@ -65,7 +65,10 @@
 	header('HTTP/1.1 200 OK'); 
 
 	// Build the required acknowledgement message out of the notification just received
-	$req = 'cmd=_notify-validate';
+	$postdata = 'cmd=_notify-validate';
+	if(!empty($_POST)){
+		$postdata.="&".http_build_query($_POST);
+	}
 	foreach ($_POST as $key => $value) {
 		$value = urlencode(stripslashes($value));
 		$req  .= "&$key=$value";
